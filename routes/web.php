@@ -24,7 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::group(['prefix' => 'admin'], function(){
-	//Route::resource('product', 'ProductController');
 
 	Route::get('/product', 'ProductController@index')->name('product.index');
 
@@ -35,7 +34,21 @@ Route::group(['prefix' => 'admin'], function(){
 
 	Route::post('/product/{id}/edit', 'ProductController@update');
 
-	Route::get('/product/{id}/delete', 'ProductController@destory')->name('product.delete');
-	//Route::post('/product/{id}/delete', 'ProductController@destroy');
+	Route::get('/product/{id}/delete', 'ProductController@destroy')->name('product.delete');
+
+	Route::get('/product/{id}/add', 'ProductController@add')->name('product.add');
+	Route::get('/product/{id}/remove', 'ProductController@remove')->name('product.remove');
+
+	Route::get('/inventory', 'InventoryController@index')->name('inventory.index');
+
+	Route::get('/inventory/create', 'InventoryController@create')->name('inventory.create');
+	Route::post('/inventory/create', 'InventoryController@store');
+
+	Route::get('/inventory/{id}/edit', 'InventoryController@edit')->name('inventory.edit');
+
+	Route::post('/inventory/{id}/edit', 'InventoryController@update');
+
+	Route::get('/inventory/{id}/delete', 'InventoryController@destroy')->name('inventory.delete');
+
 });
 
