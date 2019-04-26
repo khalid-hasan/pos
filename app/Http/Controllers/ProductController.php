@@ -16,13 +16,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $acc = Product::all();
+        $products = Product::all();
+        // $products = DB::table('products')
+        //     ->join('inventories', 'products.product_id', '=', 'inventories.product_id')
+        //     ->select('products.*', 'inventories.*')
+        //     ->get();
 
-        // return view('accounts.index')->with('accounts', $acc);
-        $products = DB::table('products')
-            ->join('inventories', 'products.product_id', '=', 'inventories.product_id')
-            ->select('products.*', 'inventories.*')
-            ->get();
 
         return view('product.index')->with('products', $products);
 
@@ -62,10 +61,11 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->added_by = session('uname');
         $product->date =  date('Y-m-d H:i:s');
-        $product->status = 1;
-        $inventory->quantity = $request->quantity;
+        $product->status = 'In System';
+        $product->quantity = $request->quantity;
+        //$inventory->quantity = $request->quantity;
         $product->save();
-        $product->inventory()->save($inventory);
+        //$product->inventory()->save($inventory);
 
         return redirect()->back()->with('message', 'Product Added.');
     }
@@ -106,6 +106,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
+        $product->quantity = $request->quantity;
         $product->save();
         return redirect()->back()->with('message', 'Product Edited.');
     }
@@ -117,7 +118,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destory($product_id)
+    public function destroy($product_id)
     {
         $product = Product::find($product_id);
         $product->inventory()->delete(); 
@@ -126,4 +127,32 @@ class ProductController extends Controller
         // $product = Product::destroy($product_id);
         return redirect()->route('product.index');
     }
+
+    public function add($product_id)
+    {
+        $inventory = new Inventory;
+
+        $product = Product::find($product_id);
+        $product->status = 'In Stock';
+        $inventory->quantity = $product->quantity;
+        $product->save();  
+        $product->inventory()->save($inventory);
+
+
+        return redirect()->route('product.index');
+    }
+
+    public function remove($product_id)
+    {
+        $product = Product::find($product_id);
+        $product->status = 'In System';
+        $product->save();  
+
+        $inventory = Inventory::where('product_id', $product_id)->first();
+        $inventory->delete();  
+
+
+        return redirect()->route('product.index');
+    }
+
 }
