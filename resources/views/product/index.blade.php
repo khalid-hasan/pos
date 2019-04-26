@@ -29,7 +29,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
-            <th>Quantity</th>
+            <th>Initial Quantity</th>
             <th>Added By</th>
             <th>Status</th>
             <th>Action</th>
@@ -45,7 +45,14 @@
               <td>{{$product->quantity}}</td>
               <td>{{$product->added_by}}</td>
               <td>{{$product->status}}</td>
-              <td><a href="{{route('product.edit', $product->product_id)}}">Edit</a> | <a href="{{route('product.delete', $product->product_id)}}">Delete</a></td>
+              <td>
+                @if ( $product->status == 'In System' )
+                <a href="{{route('product.add', $product->product_id)}}">Add</a> | <a href="{{route('product.edit', $product->product_id)}}">Edit</a> | <a href="{{route('product.delete', $product->product_id)}}">Delete</a>
+
+                @elseif ( $product->status == 'In Stock')
+                <a href="{{route('product.remove', $product->product_id)}}">Remove</a> | <a href="{{route('product.edit', $product->product_id)}}">Edit</a> | <a href="{{route('product.delete', $product->product_id)}}">Delete</a>
+                @endif
+              </td>
             </tr>
             @endforeach
           
@@ -55,7 +62,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
-            <th>Quantity</th>
+            <th>Initial Quantity</th>
             <th>Added By</th>
             <th>Action</th>
           </tr>

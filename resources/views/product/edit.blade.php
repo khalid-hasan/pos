@@ -29,6 +29,10 @@
                   <textarea class="form-control" rows="3" id="description" placeholder="Product Description" name="description">{{ $product['description'] }}</textarea>
                 </div>  
                 <div class="form-group">
+                  <label>Quantity</label>
+                  <input type="text" class="form-control" id="quantity" placeholder="Quantity" name="quantity" value="{{ $product['quantity'] }}" required>
+                </div>                 
+                <div class="form-group">
                   <label>Price</label>
                   <input type="text" class="form-control" id="price" placeholder="Price" name="price" value="{{ $product['price'] }}" required>
                 </div>
