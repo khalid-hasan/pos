@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'skin' => 'blue',
+    'skin' => 'purple',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin',
 
     'logout_url' => 'logout',
 
@@ -113,6 +113,10 @@ return [
             'text' => 'Products',
             'url'  => 'admin/product',
         ],
+        [
+            'text' => 'Inventory',
+            'url'  => 'admin/inventory',
+        ],        
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',
