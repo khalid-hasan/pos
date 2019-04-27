@@ -39,6 +39,8 @@ Route::group(['prefix' => 'admin'], function(){
 	Route::get('/product/{id}/add', 'ProductController@add')->name('product.add');
 	Route::get('/product/{id}/remove', 'ProductController@remove')->name('product.remove');
 
+	
+
 	Route::get('/inventory', 'InventoryController@index')->name('inventory.index');
 
 	Route::get('/inventory/create', 'InventoryController@create')->name('inventory.create');
@@ -49,6 +51,27 @@ Route::group(['prefix' => 'admin'], function(){
 	Route::post('/inventory/{id}/edit', 'InventoryController@update');
 
 	Route::get('/inventory/{id}/delete', 'InventoryController@destroy')->name('inventory.delete');
+
+	
+
+	Route::get('/shipment', 'ShipmentController@index')->name('shipment.index');
+
+	Route::get('/shipment/create', 'ShipmentController@create')->name('shipment.create');
+	Route::post('/shipment/create', 'ShipmentController@store');
+
+	Route::get('/shipment/{id}/edit', 'ShipmentController@edit')->name('shipment.edit');
+
+	Route::post('/shipment/{id}/edit', 'ShipmentController@update');
+
+	Route::get('/shipment/{id}/delete', 'ShipmentController@destroy')->name('shipment.delete');
+
+
+	Route::get('/order', 'OrderController@index')->name('order.index');
+
+	Route::get('/order/create', 'OrderController@create')->name('order.create');
+	Route::post('/order/create', 'OrderController@store');
+
+	Route::get('/order/{id}/delete', 'OrderController@destroy')->name('order.delete');
 
 });
 

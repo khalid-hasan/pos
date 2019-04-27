@@ -5,3 +5,10 @@
 button.btn.btn-block.btn-primary.add-btn {
     width: 30%;
 }
+
+.hidden{
+  display : none;  
+}
+
+.show{
+  display : block !important;

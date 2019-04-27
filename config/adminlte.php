@@ -110,13 +110,21 @@ return [
     'menu' => [
         'MAIN NAVIGATION',
         [
+            'text' => 'Place Order',
+            'url'  => 'admin/order',
+        ],
+        [
             'text' => 'Products',
             'url'  => 'admin/product',
         ],
         [
             'text' => 'Inventory',
             'url'  => 'admin/inventory',
-        ],        
+        ], 
+        [
+            'text' => 'Shipment',
+            'url'  => 'admin/shipment',
+        ],     
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',

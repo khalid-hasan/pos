@@ -2,10 +2,10 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Inventory')
+@section('title', 'All Shipments')
 
 @section('content_header')
-    <h1>Inventory</h1>
+    <h1>All Shipments</h1>
 @stop
 
 @section('content')
@@ -14,7 +14,11 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Inventory</h3>
+        <h3 class="box-title">All Shipments</h3>
+      </div>
+
+      <div class="col-6 col-sm-4">
+      <button onclick="location.href='{{route('shipment.create')}}'" type="button" class="btn btn-block btn-primary add-btn">New Shipment</button>
       </div>
 
       <!-- /.box-header -->
@@ -22,39 +26,37 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Available Quantity</th>
+            <th>Shipment ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Send Date</th>
+            <th>Receive Date</th>
             <th>Added By</th>
-            <th>Status</th>
             <th>Action</th>
           </tr>
           </thead>
           <tbody>
           
-            @foreach ($inventories as $inventory)
+            @foreach ($shipments as $shipment)
             <tr>
-              <td>{{$inventory->product_id}}</td>
-              <td>{{$inventory->name}}</td>
-              <td>{{$inventory->description}}</td>
-              <td>{{$inventory->price}}</td>
-              <td>{{$inventory->quantity}}</td>
-              <td>{{$inventory->added_by}}</td>
-              <td>{{$inventory->status}}</td>
-              <td><a href="{{route('inventory.edit', $inventory->product_id)}}">Edit</a> | <a href="{{route('inventory.delete', $inventory->product_id)}}">Delete</a></td>
+              <td>{{$shipment->id}}</td>
+              <td>{{$shipment->name}}</td>
+              <td>{{$shipment->quantity}}</td>
+              <td>{{$shipment->send_date}}</td>
+              <td>{{$shipment->receive_date}}</td>
+              <td>{{$shipment->added_by}}</td>
+              <td><a href="{{route('shipment.delete', $shipment->product_id)}}">Delete</a></td>
             </tr>
             @endforeach
           
           </tbody>
           <tfoot>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Available Quantity</th>
+            <th>Shipment ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Send Date</th>
+            <th>Receive Date</th>
             <th>Added By</th>
             <th>Action</th>
           </tr>

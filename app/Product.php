@@ -13,4 +13,15 @@ class Product extends Model
     {
         return $this->hasOne('App\Inventory', 'product_id');
     }
+
+    public function shipment()
+    {
+        return $this->hasOne('App\Shipment', 'product_id');
+    }
+
+    public function order_detail()
+    {
+        return $this->hasOne('App\OrderDetail', 'product_id');
+    }
+
 }
