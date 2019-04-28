@@ -68,7 +68,7 @@ class OrderController extends Controller
                     $customer_transaction = new CustomerTransaction;
                     $customer_transaction->order_id = $order_id;
                     $customer_transaction->mobile = $customer_account->mobile;
-                    $customer_transaction->balance = $customer_account->balance;
+                    $customer_transaction->current_balance = $customer_account->balance;
                     $customer_transaction->paid_amount = $request->amount[$id];
                     $customer_transaction->save();
 

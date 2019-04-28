@@ -132,7 +132,11 @@ return [
         [
             'text' => 'Customers',
             'url'  => 'admin/customer',
-        ],    
+        ],   
+        [
+            'text' => 'Customer Transactions',
+            'url'  => 'admin/customer-transaction',
+        ],  
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',

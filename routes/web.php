@@ -89,8 +89,12 @@ Route::group(['prefix' => 'admin'], function(){
 
 	Route::get('/customer/{id}/edit', 'CustomerController@edit')->name('customer.edit');
 	Route::post('/customer/{id}/edit', 'CustomerController@update');
-	
+
 	Route::get('/customer/{id}/delete', 'CustomerController@destroy')->name('customer.delete');
+
+
+
+	Route::get('/customer-transaction', 'CustomerTransactionController@index')->name('customertransaction.index');
 
 });
 

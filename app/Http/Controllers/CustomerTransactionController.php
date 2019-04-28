@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Product;
+use App\Order;
+use App\OrderDetail;
+use App\CustomerAccount;
+use App\CustomerTransaction;
 
 class CustomerTransactionController extends Controller
 {
@@ -13,7 +19,12 @@ class CustomerTransactionController extends Controller
      */
     public function index()
     {
-        //
+        $transactions = DB::table('customer_accounts')
+        ->join('customer_transactions', 'customer_transactions.mobile', '=', 'customer_accounts.mobile')
+        ->select('customer_accounts.*', 'customer_transactions.*')
+        ->get();
+
+        return view('customertransaction.index')->with('transactions', $transactions);
     }
 
     /**
