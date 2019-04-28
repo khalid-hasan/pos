@@ -66,12 +66,22 @@ Route::group(['prefix' => 'admin'], function(){
 	Route::get('/shipment/{id}/delete', 'ShipmentController@destroy')->name('shipment.delete');
 
 
+
 	Route::get('/order', 'OrderController@index')->name('order.index');
 
 	Route::get('/order/create', 'OrderController@create')->name('order.create');
 	Route::post('/order/create', 'OrderController@store');
 
 	Route::get('/order/{id}/delete', 'OrderController@destroy')->name('order.delete');
+
+
+
+	Route::get('/transfer', 'TransferController@index')->name('transfer.index');
+
+	Route::get('/transfer/create', 'TransferController@create')->name('transfer.create');
+	Route::post('/transfer/create', 'TransferController@store');
+
+	Route::get('/transfer/{id}/delete', 'TransferController@destroy')->name('transfer.delete');
 
 });
 

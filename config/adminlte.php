@@ -110,7 +110,7 @@ return [
     'menu' => [
         'MAIN NAVIGATION',
         [
-            'text' => 'Place Order',
+            'text' => 'Orders',
             'url'  => 'admin/order',
         ],
         [
@@ -124,7 +124,11 @@ return [
         [
             'text' => 'Shipment',
             'url'  => 'admin/shipment',
-        ],     
+        ],
+        [
+            'text' => 'Transfer Money',
+            'url'  => 'admin/transfer',
+        ],    
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',
