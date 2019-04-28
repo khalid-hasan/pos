@@ -97,6 +97,10 @@
             <div class="error">{{ session('message') }}</div>
           @endif
 
+          @if (session()->has('payment_method'))
+            <div class="error">Payment Method: {{ session('payment_method') }}</div>
+          @endif
+
           <button type="submit" class="btn btn-primary" name="save">PLACE ORDER</button>
           
           

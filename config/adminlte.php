@@ -122,12 +122,16 @@ return [
             'url'  => 'admin/inventory',
         ], 
         [
-            'text' => 'Shipment',
+            'text' => 'Shipments',
             'url'  => 'admin/shipment',
         ],
         [
             'text' => 'Transfer Money',
             'url'  => 'admin/transfer',
+        ], 
+        [
+            'text' => 'Customers',
+            'url'  => 'admin/customer',
         ],    
         'ACCOUNT SETTINGS',
         [

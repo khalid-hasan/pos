@@ -8,6 +8,8 @@ use App\Product;
 use App\Inventory;
 use App\OrderDetail;
 use App\Order;
+use App\CustomerAccount;
+use App\CustomerTransaction;
 
 class OrderController extends Controller
 {
@@ -59,6 +61,27 @@ class OrderController extends Controller
         if($order_id > 0)
         {
             for($id = 0; $id < count($request->product_id); $id++){
+                $customer_account= CustomerAccount::where('mobile', $request->mobile)->first();
+
+                if($customer_account && $customer_account->balance > 0)
+                {
+                    $customer_transaction = new CustomerTransaction;
+                    $customer_transaction->order_id = $order_id;
+                    $customer_transaction->mobile = $customer_account->mobile;
+                    $customer_transaction->balance = $customer_account->balance;
+                    $customer_transaction->paid_amount = $request->amount[$id];
+                    $customer_transaction->save();
+
+                    $customer_account->balance = $customer_account->balance - $request->amount[$id];
+                    $customer_account->save();
+
+                    $payment_method = 'Deducted from Account.';
+                }
+                else
+                {
+                    $payment_method = 'Cash Payment';
+                }
+
                 $inventory = Inventory::where('product_id', $request->product_id[$id])->first();
                 $order_details = new OrderDetail;
                 $order_details->order_id = $order_id;
@@ -71,11 +94,12 @@ class OrderController extends Controller
                 $order_details->added_by = session('uname');
                 $inventory->save();
                 $order_details->save();
+
             }
             
         }
-
-        return redirect()->back()->with('message', 'Order Placed.');
+        //dd($customer_account);
+        return redirect()->back()->with('message', 'Order Placed.')->with('payment_method', $payment_method);
     }
 
     /**
