@@ -2,10 +2,10 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Factories')
+@section('title', 'All Shipment Details')
 
 @section('content_header')
-    <h1>Factories</h1>
+    <h1>All Shipment Details</h1>
 @stop
 
 @section('content')
@@ -14,11 +14,11 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Factories</h3>
+        <h3 class="box-title">All Shipment Details</h3>
       </div>
 
       <div class="col-6 col-sm-4">
-      <button onclick="location.href='{{route('factory.create')}}'" type="button" class="btn btn-block btn-primary add-btn">Add Factory</button>
+      <button onclick="location.href='{{route('factory-shipment.create')}}'" type="button" class="btn btn-block btn-primary add-btn">New Shipment</button>
       </div>
 
       <!-- /.box-header -->
@@ -28,20 +28,22 @@
           <tr>
             <th>ID</th>
             <th>Factory Name</th>
-            <th>Address</th>
-            <th>Mobile</th>
+            <th>Shipment Name</th>
+            <th>Shipment Creation Date</th>
+            <th>Shipment Arrival Date</th>
             <th>Action</th>
           </tr>
           </thead>
           <tbody>
           
-            @foreach ($factories as $factory)
+            @foreach ($factory_shipments as $factory_shipment)
             <tr>
-              <td>{{$factory->factory_id}}</td>
-              <td>{{$factory->factory_name}}</td>
-              <td>{{$factory->address}}</td>
-              <td>{{$factory->phone}}</td>
-              <td><a href="{{route('factory.edit', $factory->factory_id)}}">Edit</a> | <a href="{{route('factory.delete', $factory->factory_id)}}">Delete</a></td>
+              <td>{{$factory_shipment->id}}</td>
+              <td>{{$factory_shipment->factory_name}}</td>
+              <td>{{$factory_shipment->shipment_name}}</td>
+              <td>{{$factory_shipment->shipment_creation_date}}</td>
+              <td>{{$factory_shipment->shipment_arrival_date}}</td>
+              <td><a href="{{route('factory-shipment.delete', $factory_shipment->id)}}">Delete</a></td>
             </tr>
             @endforeach
           
@@ -50,8 +52,9 @@
           <tr>
             <th>ID</th>
             <th>Factory Name</th>
-            <th>Address</th>
-            <th>Mobile</th>
+            <th>Shipment Name</th>
+            <th>Shipment Creation Date</th>
+            <th>Shipment Arrival Date</th>
             <th>Action</th>
           </tr>
           </tfoot>

@@ -141,6 +141,14 @@ return [
             'text' => 'Factories',
             'url'  => 'admin/factory',
         ],   
+        [
+            'text' => 'Raw Materials',
+            'url'  => 'admin/raw-material',
+        ],         
+        [
+            'text' => 'Factory Shipments',
+            'url'  => 'admin/factory-shipment',
+        ], 
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',

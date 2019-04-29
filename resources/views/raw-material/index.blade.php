@@ -2,10 +2,10 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Factories')
+@section('title', 'All Raw Materials')
 
 @section('content_header')
-    <h1>Factories</h1>
+    <h1>All Raw Materials</h1>
 @stop
 
 @section('content')
@@ -14,11 +14,11 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Factories</h3>
+        <h3 class="box-title">All Raw Materials</h3>
       </div>
 
       <div class="col-6 col-sm-4">
-      <button onclick="location.href='{{route('factory.create')}}'" type="button" class="btn btn-block btn-primary add-btn">Add Factory</button>
+      <button onclick="location.href='{{route('raw-material.create')}}'" type="button" class="btn btn-block btn-primary add-btn">Add Raw Material</button>
       </div>
 
       <!-- /.box-header -->
@@ -28,20 +28,26 @@
           <tr>
             <th>ID</th>
             <th>Factory Name</th>
-            <th>Address</th>
-            <th>Mobile</th>
+            <th>Material Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Production Type</th>
+            <th>Assign Date</th>
             <th>Action</th>
           </tr>
           </thead>
           <tbody>
           
-            @foreach ($factories as $factory)
+            @foreach ($raw_materials as $raw_material)
             <tr>
-              <td>{{$factory->factory_id}}</td>
-              <td>{{$factory->factory_name}}</td>
-              <td>{{$factory->address}}</td>
-              <td>{{$factory->phone}}</td>
-              <td><a href="{{route('factory.edit', $factory->factory_id)}}">Edit</a> | <a href="{{route('factory.delete', $factory->factory_id)}}">Delete</a></td>
+              <td>{{$raw_material->id}}</td>
+              <td>{{$raw_material->factory_name}}</td>
+              <td>{{$raw_material->material_name}}</td>
+              <td>{{$raw_material->quantity}}</td>
+              <td>{{$raw_material->price}}</td>
+              <td>{{$raw_material->production_type}}</td>
+              <td>{{$raw_material->assign_date}}</td>
+              <td><a href="{{route('raw-material.delete', $raw_material->id)}}">Delete</a></td>
             </tr>
             @endforeach
           
@@ -50,8 +56,11 @@
           <tr>
             <th>ID</th>
             <th>Factory Name</th>
-            <th>Address</th>
-            <th>Mobile</th>
+            <th>Material Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Production Type</th>
+            <th>Assign Date</th>
             <th>Action</th>
           </tr>
           </tfoot>

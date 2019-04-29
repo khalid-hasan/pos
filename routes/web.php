@@ -110,15 +110,27 @@ Route::group(['prefix' => 'admin'], function(){
 
 
 
-	Route::get('/raw-materials', 'FactoryController@index')->name('rawmaterial.index');
+	Route::get('/raw-material', 'RawMaterialController@index')->name('raw-material.index');
 
-	Route::get('/raw-materials/create', 'FactoryController@create')->name('rawmaterial.create');
-	Route::post('/raw-materials/create', 'FactoryController@store');
+	Route::get('/raw-material/create', 'RawMaterialController@create')->name('raw-material.create');
+	Route::post('/raw-material/create', 'RawMaterialController@store');
 
-	Route::get('/raw-materials/{id}/edit', 'FactoryController@edit')->name('rawmaterial.edit');
-	Route::post('/raw-materials/{id}/edit', 'FactoryController@update');
+	Route::get('/raw-material/{id}/edit', 'RawMaterialController@edit')->name('raw-material.edit');
+	Route::post('/raw-material/{id}/edit', 'RawMaterialController@update');
 
-	Route::get('/raw-materials/{id}/delete', 'FactoryController@destroy')->name('rawmaterial.delete');
+	Route::get('/raw-material/{id}/delete', 'RawMaterialController@destroy')->name('raw-material.delete');
+
+
+
+	Route::get('/factory-shipment', 'FactoryShipmentController@index')->name('factory-shipment.index');
+
+	Route::get('/factory-shipment/create', 'FactoryShipmentController@create')->name('factory-shipment.create');
+	Route::post('/factory-shipment/create', 'FactoryShipmentController@store');
+
+	Route::get('/factory-shipment/{id}/edit', 'FactoryShipmentController@edit')->name('factory-shipment.edit');
+	Route::post('/factory-shipment/{id}/edit', 'FactoryShipmentController@update');
+
+	Route::get('/factory-shipment/{id}/delete', 'FactoryShipmentController@destroy')->name('factory-shipment.delete');
 
 });
 

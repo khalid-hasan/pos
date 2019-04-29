@@ -111,7 +111,7 @@ class FactoryController extends Controller
      */
     public function destroy($id)
     {
-        $factory = Factory::destroy($id);
+        $factory = Factory::where('factory_id', $id)->delete();
         return redirect()->route('factory.index');
     }
 }
