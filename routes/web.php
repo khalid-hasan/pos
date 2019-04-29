@@ -62,6 +62,8 @@ Route::group(['prefix' => 'admin'], function(){
 
 	Route::get('/shipment/{id}/delete', 'ShipmentController@destroy')->name('shipment.delete');
 
+	Route::post('/quantity-check', 'ShipmentController@quantity_check')->name('shipment.quantity_check');
+
 
 
 	Route::get('/order', 'OrderController@index')->name('order.index');

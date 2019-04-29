@@ -22,7 +22,7 @@
                 <div class="form-group">
                   @csrf
                   <label>Select Product</label>
-                  <select class="form-control" name="product_id" required>
+                  <select class="form-control" name="product_id" id="product_id" required>
                     <option value="">--SELECT--</option>
                     @foreach ($shipments as $shipment)
                     <option value="{{$shipment->product_id}}">{{$shipment->name}}</option>
@@ -33,6 +33,9 @@
                   <label>Quantity</label>
                   <input type="text" class="form-control" id="quantity" placeholder="Quantity" name="quantity" value="{{ old('quantity') }}" required>
                 </div>  
+
+                <div class="alert alert-primary quantity-unavailable" role="alert"></div>
+
                 <div class="form-group">
                   <label>Send Date</label>
                   <input type="date" class="form-control" id="send_date" placeholder="Send Date" name="send_date" value="{{ old('send_date') }}" required>
@@ -74,4 +77,34 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $(".quantity-unavailable").css("display", "none");
+      $('#quantity').keyup(function() {
+        var value = $(this).val();
+        var product_id= $("#product_id").val();
+        console.log(value);
+        $.ajax({
+          type: 'post',
+          url: '/admin/quantity-check',
+          data: {
+            'value' : value,
+            'product_id' : product_id,
+            _token: '{!! csrf_token() !!}'
+          },
+          success: function(r) {
+            $('.quantity-unavailable').html(r.success);
+            $('.quantity-unavailable').css("display", "");
+          }
+        });
+      });
+    });
+    </script>
+
 @stop

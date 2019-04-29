@@ -126,4 +126,20 @@ class ShipmentController extends Controller
         $shipment->delete();  
         return redirect()->route('shipment.index');
     }
+
+    public function quantity_check(Request $request)
+    {
+        $product = Product::find($request->product_id);
+        $inventory = Inventory::where('product_id', $product->product_id)->first();
+
+        if($request->value <= $inventory->quantity)
+        {
+            return response()->json(['success'=>'Product Quantity Available.']);
+        }
+        else
+        {
+            return response()->json(['success'=>'Product Quantity Not Available.']);
+        }
+    }
+
 }
