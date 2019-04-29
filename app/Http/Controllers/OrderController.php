@@ -70,6 +70,7 @@ class OrderController extends Controller
                     $customer_transaction->mobile = $customer_account->mobile;
                     $customer_transaction->current_balance = $customer_account->balance;
                     $customer_transaction->paid_amount = $request->amount[$id];
+                    $customer_transaction->date = date('Y-m-d');
                     $customer_transaction->save();
 
                     $customer_account->balance = $customer_account->balance - $request->amount[$id];

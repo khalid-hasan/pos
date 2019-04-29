@@ -96,5 +96,17 @@ Route::group(['prefix' => 'admin'], function(){
 
 	Route::get('/customer-transaction', 'CustomerTransactionController@index')->name('customertransaction.index');
 
+
+
+	Route::get('/factory', 'FactoryController@index')->name('factory.index');
+
+	Route::get('/factory/create', 'FactoryController@create')->name('factory.create');
+	Route::post('/factory/create', 'FactoryController@store');
+
+	Route::get('/factory/{id}/edit', 'FactoryController@edit')->name('factory.edit');
+	Route::post('/factory/{id}/edit', 'FactoryController@update');
+
+	Route::get('/factory/{id}/delete', 'FactoryController@destroy')->name('factory.delete');
+
 });
 

@@ -136,7 +136,11 @@ return [
         [
             'text' => 'Customer Transactions',
             'url'  => 'admin/customer-transaction',
-        ],  
+        ], 
+        [
+            'text' => 'Factories',
+            'url'  => 'admin/factory',
+        ],   
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',
