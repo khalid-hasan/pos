@@ -24,7 +24,7 @@ class CustomerTransactionController extends Controller
         ->select('customer_accounts.*', 'customer_transactions.*')
         ->get();
 
-        return view('customertransaction.index')->with('transactions', $transactions);
+        return view('customer-transaction.index')->with('transactions', $transactions);
     }
 
     /**

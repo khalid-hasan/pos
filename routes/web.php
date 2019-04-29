@@ -108,5 +108,17 @@ Route::group(['prefix' => 'admin'], function(){
 
 	Route::get('/factory/{id}/delete', 'FactoryController@destroy')->name('factory.delete');
 
+
+
+	Route::get('/raw-materials', 'FactoryController@index')->name('rawmaterial.index');
+
+	Route::get('/raw-materials/create', 'FactoryController@create')->name('rawmaterial.create');
+	Route::post('/raw-materials/create', 'FactoryController@store');
+
+	Route::get('/raw-materials/{id}/edit', 'FactoryController@edit')->name('rawmaterial.edit');
+	Route::post('/raw-materials/{id}/edit', 'FactoryController@update');
+
+	Route::get('/raw-materials/{id}/delete', 'FactoryController@destroy')->name('rawmaterial.delete');
+
 });
 
