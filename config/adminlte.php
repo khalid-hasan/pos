@@ -130,6 +130,10 @@ return [
             'url'  => 'admin/transfer',
         ], 
         [
+            'text' => 'Transfer Money (BD)',
+            'url'  => 'admin/transfer-bd',
+        ], 
+        [
             'text' => 'Customers',
             'url'  => 'admin/customer',
         ],   

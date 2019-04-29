@@ -20,6 +20,13 @@ class TransferController extends Controller
         return view('transfer.index')->with('transfers', $transfers);
     }
 
+    public function index_bd()
+    {
+        $transfers = TransferredInToBd::all();
+
+        return view('transfer-bd.index')->with('transfers', $transfers);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -96,6 +103,27 @@ class TransferController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tranfer= TransferredInToBd::destroy($id);
+        return redirect()->route('transfer.index');
+    }
+
+    public function receive($id)
+    {
+        $transfer= TransferredInToBd::where('id', $id)->first();
+
+        $transfer->status = 'Received';
+        $transfer->save();
+
+        return redirect()->route('transfer-bd.index');
+    }
+
+    public function undo($id)
+    {
+        $transfer= TransferredInToBd::where('id', $id)->first();
+
+        $transfer->status = 'Sent';
+        $transfer->save();
+        
+        return redirect()->route('transfer-bd.index');
     }
 }

@@ -82,6 +82,14 @@ Route::group(['prefix' => 'admin'], function(){
 
 
 
+	Route::get('/transfer-bd', 'TransferController@index_bd')->name('transfer-bd.index');
+
+	Route::get('/transfer-bd/{id}/receive', 'TransferController@receive')->name('transfer-bd.receive');
+	Route::get('/transfer-bd/{id}/undo', 'TransferController@undo')->name('transfer-bd.undo');
+
+
+
+
 	Route::get('/customer', 'CustomerController@index')->name('customer.index');
 
 	Route::get('/customer/create', 'CustomerController@create')->name('customer.create');
