@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use App\Product;
 use App\Inventory;
 use App\OrderDetail;
@@ -20,6 +21,11 @@ class OrderController extends Controller
      */
     public function index()
     {
+        if (Gate::allows('isAdmin'))
+        {
+            abort(404, 'Sorry');
+        }
+
         $orders = DB::table('order_details')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->join('products', 'order_details.product_id', '=', 'products.product_id')

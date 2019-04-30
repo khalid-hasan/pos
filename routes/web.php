@@ -21,7 +21,7 @@ Route::get('/logout', 'LogoutController@index')->name('logout.index');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin', 'AdminController@index')->name('admin')->middleware('sess'); ;
+Route::get('/admin', 'AdminController@index')->name('admin')->middleware('sess');
 
 Route::group(['prefix' => 'admin', 'middleware'=>['sess']], function(){
 
