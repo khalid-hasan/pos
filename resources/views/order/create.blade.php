@@ -2,6 +2,10 @@
 
 @extends('adminlte::page')
 
+@section('meta')
+<meta name="csrf_token" content="{{ csrf_token() }}" />  
+@stop
+
 @section('title', 'Place Order')
 
 @section('content_header')
@@ -26,11 +30,13 @@
                   Customer Name: <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
                 </td>
                 <td>
-                  Contact Number: <input type="text" class="form-control" name="mobile" value="{{ old('mobile') }}" required>
+                  Contact Number: <input type="text" id="mobile" class="form-control" name="mobile" value="{{ old('mobile') }}" required>
                 </td>
               </tr>
             </table>
-            
+
+            <div class="alert alert-primary isCustomer" role="alert"></div>
+
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -119,6 +125,35 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
+
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $(".isCustomer").css("display", "none");
+      $('#mobile').keyup(function() {
+        var value = $(this).val();
+        console.log(value);
+        $.ajax({
+          type: 'post',
+          url: '/admin/customer-check',
+          data: {
+            'value' : value,
+            _token: '{!! csrf_token() !!}'
+          },
+          success: function(r) {
+            $('.isCustomer').html(r.success);
+            $('.isCustomer').css("display", "");
+          }
+        });
+      });
+    });
+    </script>
+
 
     <script type="text/javascript">
       function totalAmount(){

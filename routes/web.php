@@ -73,6 +73,8 @@ Route::group(['prefix' => 'admin', 'middleware'=>['sess']], function(){
 
 	Route::get('/order/{id}/delete', 'OrderController@destroy')->name('order.delete');
 
+	Route::post('/customer-check', 'OrderController@customer_check')->name('order.customer_check');
+
 
 
 	Route::get('/transfer', 'TransferController@index')->name('transfer.index');

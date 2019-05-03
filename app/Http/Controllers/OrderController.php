@@ -156,4 +156,47 @@ class OrderController extends Controller
 
         return redirect()->route('order.index');
     }
+
+    public function customer_check(Request $request)
+    {
+        $customer = CustomerAccount::where('mobile', $request->value )->first();
+
+        $details = 
+        '<p class="cust_head">Customer Details</p>'.
+        '<p class="cust_details">Customer ID: '.$customer->id.'</p>'.
+        '<p class="cust_details">Customer Name: '.$customer->customer_name.'</p>'.
+        '<p class="cust_details">Customer Mobile: '.$customer->mobile.'</p>'.
+        '<p class="cust_details">Customer Balance: '.$customer->balance.'</p>'
+        ;
+
+        // $details = 
+        // '
+        //     <p class="cust_head">Customer Details</p>
+        //     <p class="cust_details">Customer ID: $customer->id</p>
+        //     <p class="cust_details">Customer Name: $customer->customer_name</p>
+        //     <p class="cust_details">Customer Mobile: $customer->mobile</p>
+        //     <p class="cust_details">Customer Balance: $customer->balance</p>
+        // '
+        // ;
+
+        // if($request->value ==  $customer->mobile)
+        // {
+        //     return response()->json(['success'=> $details]);
+        // }
+        // else 
+        // {
+        //     return response()->json(['success'=>'No Customer in the system.']);
+        // }
+
+        if($request->value !=  $customer->mobile)
+        {
+            return response()->json(['success'=>'No Customer in the system.']);
+        }
+        
+        if ($request->value ==  $customer->mobile)
+        {
+            return response()->json(['success'=> $details]);
+        }
+    }
+
 }
