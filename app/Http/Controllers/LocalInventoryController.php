@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\RawMaterial;
-use App\Factory;
+use App\LocalInventory;
+use App\Product;
 
-
-class RawMaterialController extends Controller
+class LocalInventoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,12 @@ class RawMaterialController extends Controller
      */
     public function index()
     {
-        $raw_materials = RawMaterial::all();
+        $inventories = DB::table('local_inventories')
+            ->join('products', 'products.product_id', '=', 'local_inventories.product_id')
+            ->select('products.name', 'local_inventories.*')
+            ->get();
 
-        return view('raw-material.index')->with('raw_materials', $raw_materials);
+        return view('local-inventory.index')->with('inventories', $inventories);
     }
 
     /**
@@ -29,7 +31,7 @@ class RawMaterialController extends Controller
      */
     public function create()
     {
-        return view('raw-material.create');
+        //
     }
 
     /**
@@ -40,19 +42,7 @@ class RawMaterialController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'material_name' => 'required',
-            'price' => 'required'
-        ]);
-
-        $raw_material = new RawMaterial;
-
-        $raw_material->material_name = $request->material_name;
-        $raw_material->quantity = 1;
-        $raw_material->price = $request->price;
-        $raw_material->save();
-
-        return redirect()->back()->with('message', 'Raw Materials Added.');
+        //
     }
 
     /**
@@ -97,14 +87,6 @@ class RawMaterialController extends Controller
      */
     public function destroy($id)
     {
-        $factory = RawMaterial::destroy($id);
-        return redirect()->route('raw-material.index');
-    }
-
-    public function messages()
-    {
-        return [
-            'material_name.required' => 'A material name is required',
-        ];
+        //
     }
 }

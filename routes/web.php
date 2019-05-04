@@ -122,6 +122,21 @@ Route::group(['prefix' => 'admin', 'middleware'=>['sess']], function(){
 
 
 
+	Route::get('/local-inventory', 'LocalInventoryController@index')->name('local-inventory.index');
+
+
+
+	Route::get('/work-order', 'WorkOrderController@index')->name('work-order.index');
+	Route::post('/work-order', 'WorkOrderController@receive')->name('work-order.receive');
+
+	Route::get('/work-order/create', 'WorkOrderController@create')->name('work-order.create');
+	Route::post('/work-order/create', 'WorkOrderController@store');
+
+	Route::get('/work-order/{id}/delete', 'WorkOrderController@destroy')->name('work-order.delete');
+
+
+
+
 	Route::get('/raw-material', 'RawMaterialController@index')->name('raw-material.index');
 
 	Route::get('/raw-material/create', 'RawMaterialController@create')->name('raw-material.create');

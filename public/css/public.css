@@ -2,8 +2,10 @@
     padding-bottom: 10px;
 }
 
+
+
 button.btn.btn-block.btn-primary.add-btn {
-    width: 30%;
+    width: 35%;
 }
 
 .hidden{
@@ -30,4 +32,8 @@ button.btn.btn-block.btn-primary.add-btn {
     border-radius: 4px;
     color: #004085 !important;
     background-color: #cce5ff !important;
+}
+
+a.btn.btn-info.order {
+    padding: 6px;
 }

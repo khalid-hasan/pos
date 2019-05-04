@@ -203,6 +203,23 @@ return [
             ],
         ],   
         [
+            'text' => 'Work Order',
+            'submenu' => [
+                [
+                    'text' => 'All Work Orders',
+                    'url'  => 'admin/work-order',
+                ],
+                [
+                    'text' => 'New Work Order',
+                    'url'  => 'admin/work-order/create',
+                ],
+            ],
+        ], 
+        [
+            'text' => 'Local Inventory',
+            'url' => 'admin/local-inventory'
+        ],
+        [
             'text' => 'Raw Materials',
             'submenu' => [
                 [

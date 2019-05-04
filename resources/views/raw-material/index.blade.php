@@ -27,12 +27,9 @@
           <thead>
           <tr>
             <th>ID</th>
-            <th>Factory Name</th>
             <th>Material Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Production Type</th>
-            <th>Assign Date</th>
             <th>Action</th>
           </tr>
           </thead>
@@ -41,12 +38,9 @@
             @foreach ($raw_materials as $raw_material)
             <tr>
               <td>{{$raw_material->id}}</td>
-              <td>{{$raw_material->factory_name}}</td>
               <td>{{$raw_material->material_name}}</td>
               <td>{{$raw_material->quantity}}</td>
               <td>{{$raw_material->price}}</td>
-              <td>{{$raw_material->production_type}}</td>
-              <td>{{$raw_material->assign_date}}</td>
               <td><a href="{{route('raw-material.delete', $raw_material->id)}}">Delete</a></td>
             </tr>
             @endforeach
@@ -55,12 +49,9 @@
           <tfoot>
           <tr>
             <th>ID</th>
-            <th>Factory Name</th>
             <th>Material Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Production Type</th>
-            <th>Assign Date</th>
             <th>Action</th>
           </tr>
           </tfoot>
