@@ -108,52 +108,131 @@ return [
     */
 
     'menu' => [
-        'MAIN NAVIGATION',
+        'Accounts Module (IN)',
         [
             'text' => 'Orders',
-            'url'  => 'admin/order',
+            'submenu' => [
+                [
+                    'text' => 'All Orders',
+                    'url'  => 'admin/order',
+                ],
+                [
+                    'text' => 'Create Order',
+                    'url'  => 'admin/order/create',
+                ],
+            ],
         ],
         [
+            'text' => 'Customers',
+            'submenu' => [
+                [
+                    'text' => 'All Customers',
+                    'url'  => 'admin/customer',
+                ],
+                [
+                    'text' => 'Create Customer',
+                    'url'  => 'admin/customer/create',
+                ],
+                [
+                    'text' => 'Customer Transactions',
+                    'url'  => 'admin/customer-transaction',
+                ], 
+            ]
+        ],  
+        [
+            'text' => 'Transfer Money',
+            'submenu' => [
+                [
+                    'text' => 'All Transfers',
+                    'url'  => 'admin/transfer',
+                ],
+                [
+                    'text' => 'New Transfer',
+                    'url'  => 'admin/transfer/create',
+                ],
+            ],
+        ], 
+        'Inventory Module (IN)',
+        [
             'text' => 'Products',
-            'url'  => 'admin/product',
+            'submenu' => [
+                [
+                    'text' => 'All Products',
+                    'url'  => 'admin/product',
+                ],
+                [
+                    'text' => 'Create Product',
+                    'url'  => 'admin/product/create',
+                ],
+            ],
         ],
         [
             'text' => 'Inventory',
-            'url'  => 'admin/inventory',
+            'submenu' => [
+                [
+                    'text' => 'All Inventory',
+                    'url'  => 'admin/inventory',
+                ],
+            ],
         ], 
         [
             'text' => 'Shipments',
-            'url'  => 'admin/shipment',
+            'submenu' => [
+                [
+                    'text' => 'All Shipments',
+                    'url'  => 'admin/shipment',
+                ],
+                [
+                    'text' => 'Create Shipment',
+                    'url'  => 'admin/shipment/create',
+                ],
+            ],
         ],
+        'Factory Management (BD)',
         [
-            'text' => 'Transfer Money',
-            'url'  => 'admin/transfer',
-        ], 
+            'text' => 'Factories',
+            'submenu' => [
+                [
+                    'text' => 'All Factories',
+                    'url'  => 'admin/factory',
+                ],
+                [
+                    'text' => 'Create Factory',
+                    'url'  => 'admin/factory/create',
+                ],
+            ],
+        ],   
+        [
+            'text' => 'Raw Materials',
+            'submenu' => [
+                [
+                    'text' => 'All Raw Materials',
+                    'url'  => 'admin/raw-material',
+                ],
+                [
+                    'text' => 'New Raw Material',
+                    'url'  => 'admin/raw-material/create',
+                ],
+            ],
+        ],  
+        [
+            'text' => 'Factory Shipments',
+            'submenu' => [
+                [
+                    'text' => 'All Shipments',
+                    'url'  => 'admin/factory-shipment',
+                ],
+                [
+                    'text' => 'New Shipment',
+                    'url'  => 'admin/factory-shipment/create',
+                ],
+            ],
+        ],
+        'Accounts Module (BD)',
         [
             'text' => 'Transfer Money (BD)',
             'url'  => 'admin/transfer-bd',
         ], 
-        [
-            'text' => 'Customers',
-            'url'  => 'admin/customer',
-        ],   
-        [
-            'text' => 'Customer Transactions',
-            'url'  => 'admin/customer-transaction',
-        ], 
-        [
-            'text' => 'Factories',
-            'url'  => 'admin/factory',
-        ],   
-        [
-            'text' => 'Raw Materials',
-            'url'  => 'admin/raw-material',
-        ],         
-        [
-            'text' => 'Factory Shipments',
-            'url'  => 'admin/factory-shipment',
-        ], 
-
         'ACCOUNT SETTINGS',
         [
             'text' => 'Users',

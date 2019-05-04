@@ -28,6 +28,7 @@
             <th>Amount Paid</th>
             <th>Previous Balance</th>
             <th>Current Balance</th>
+            <th>Due Status</th>
             <th>Date</th>
           </tr>
           </thead>
@@ -41,6 +42,7 @@
               <td>{{$transaction->paid_amount}}</td>
               <td>{{$transaction->current_balance}}</td>
               <td>{{$transaction->balance}}</td>
+              <td>{{$transaction->due_status}}</td>
               <td>{{$transaction->date}}</td>
             </tr>
             @endforeach
@@ -54,6 +56,7 @@
             <th>Amount Paid</th>
             <th>Previous Balance</th>
             <th>Current Balance</th>
+            <th>Due Status</th>
             <th>Date</th>
           </tr>
           </tfoot>

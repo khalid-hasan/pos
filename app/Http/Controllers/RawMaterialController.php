@@ -22,7 +22,9 @@ class RawMaterialController extends Controller
         ->select('raw_materials.*', 'factories.*')
         ->get();
 
-        return view('raw-material.index')->with('raw_materials', $raw_materials);
+        $factories = Factory::all();
+
+        return view('raw-material.index')->with('raw_materials', $raw_materials)->with('factories', $factories);
     }
 
     /**

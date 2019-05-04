@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use App\Product;
 use App\Inventory;
 use App\OrderDetail;
@@ -21,11 +22,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        if (Gate::allows('isAdmin'))
-        {
-            abort(404, 'Sorry');
-        }
-
         $orders = DB::table('order_details')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->join('products', 'order_details.product_id', '=', 'products.product_id')
@@ -64,12 +60,41 @@ class OrderController extends Controller
         $order->mobile = $request->mobile;
         $order->save();
         $order_id = $order->id;
+
+        $customer_account= CustomerAccount::where('mobile', $request->mobile)->first();
+        if(!$customer_account)
+        {
+            $new_customer_account = new CustomerAccount;
+            $new_customer_account->customer_name = $request->name;
+            $new_customer_account->mobile = $request->mobile;
+            $new_customer_account->password = Hash::make(str_random(8));
+            $new_customer_account->balance = 0;
+            $new_customer_account->save();
+            $new_customer_account_id = $new_customer_account->id;        
+        }
+
+        if($request->due != "")
+        {
+            $customer_account= CustomerAccount::where('mobile', $request->mobile)->first();
+            $customer_account->balance = $customer_account->balance + $request->due;
+            $customer_account->save();
+
+            $customer_transaction = new CustomerTransaction;
+            $customer_transaction->order_id = $order_id;
+            $customer_transaction->mobile = $customer_account->mobile;
+            $customer_transaction->current_balance = $customer_account->balance;
+            $customer_transaction->paid_amount = $request->due;
+            $customer_transaction->date = date('Y-m-d');
+            $customer_transaction->due_status = 'Clear';
+            $customer_transaction->save();
+        }
+
         if($order_id > 0)
         {
             for($id = 0; $id < count($request->product_id); $id++){
                 $customer_account= CustomerAccount::where('mobile', $request->mobile)->first();
 
-                if($customer_account && $customer_account->balance > 0)
+                if($customer_account)
                 {
                     $customer_transaction = new CustomerTransaction;
                     $customer_transaction->order_id = $order_id;
@@ -79,34 +104,50 @@ class OrderController extends Controller
                     $customer_transaction->date = date('Y-m-d');
                     $customer_transaction->save();
 
-                    $customer_account->balance = $customer_account->balance - $request->amount[$id];
-                    $customer_account->save();
+                    if($request->payment_status == 'Unpaid')
+                    {
+                        $customer_account->balance = $customer_account->balance - $request->amount[$id];
+                        $customer_account->save();
 
-                    $payment_method = 'Deducted from Account.';
-                }
-                else
-                {
-                    $payment_method = 'Cash Payment';
+                        $inventory = Inventory::where('product_id', $request->product_id[$id])->first();
+                        $order_details = new OrderDetail;
+                        $order_details->order_id = $order_id;
+                        $order_details->product_id = $request->product_id[$id];
+                        $order_details->quantity = $request->qty[$id];
+                        $inventory->quantity = $inventory->quantity - $request->qty[$id];
+                        $order_details->unitprice = $request->price[$id];
+                        $order_details->discount = $request->dis[$id];
+                        $order_details->total = $request->amount[$id];
+                        $order_details->added_by = session('uname');
+                        $order_details->payment_status = 'Unpaid';
+                        $inventory->save();
+                        $order_details->save();
+                    }
+                    else
+                    {
+                        $inventory = Inventory::where('product_id', $request->product_id[$id])->first();
+                        $order_details = new OrderDetail;
+                        $order_details->order_id = $order_id;
+                        $order_details->product_id = $request->product_id[$id];
+                        $order_details->quantity = $request->qty[$id];
+                        $inventory->quantity = $inventory->quantity - $request->qty[$id];
+                        $order_details->unitprice = $request->price[$id];
+                        $order_details->discount = $request->dis[$id];
+                        $order_details->total = $request->amount[$id];
+                        $order_details->added_by = session('uname');
+                        $inventory->save();
+                        $order_details->save();
+                    }
+
                 }
 
-                $inventory = Inventory::where('product_id', $request->product_id[$id])->first();
-                $order_details = new OrderDetail;
-                $order_details->order_id = $order_id;
-                $order_details->product_id = $request->product_id[$id];
-                $order_details->quantity = $request->qty[$id];
-                $inventory->quantity = $inventory->quantity - $request->qty[$id];
-                $order_details->unitprice = $request->price[$id];
-                $order_details->discount = $request->dis[$id];
-                $order_details->total = $request->amount[$id];
-                $order_details->added_by = session('uname');
-                $inventory->save();
-                $order_details->save();
+
 
             }
             
         }
         //dd($customer_account);
-        return redirect()->back()->with('message', 'Order Placed.')->with('payment_method', $payment_method);
+        return redirect()->back()->with('message', 'Order Placed.');
     }
 
     /**

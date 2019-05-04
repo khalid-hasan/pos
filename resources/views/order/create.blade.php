@@ -85,6 +85,9 @@
                             
 
             </table>  
+            <p>Due: <input type="text" class="form-control" name="due" value=""></p>
+            <p><input type="checkbox" name="payment_status" value="Unpaid">Unpaid</p>
+
             <input type="button" class="btn btn-lg btn-primary add" value="Add Item">
             <hr>  
 
