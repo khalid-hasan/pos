@@ -250,6 +250,10 @@ return [
             'text' => 'Transfer Money (BD)',
             'url'  => 'admin/transfer-bd',
         ], 
+        [
+            'text' => 'Balance Sheet',
+            'url'  => 'admin/balance-sheet',
+        ], 
         'ACCOUNT SETTINGS',
         [
             'text' => 'Users',

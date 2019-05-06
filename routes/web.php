@@ -164,6 +164,9 @@ Route::group(['prefix' => 'admin', 'middleware'=>['sess']], function(){
 
 
 
+	Route::get('/balance-sheet', 'BalanceSheetController@index')->name('balance-sheet.index');
+
+
 	Route::get('/user', 'UserController@index')->name('user.index');
 
 	Route::get('/user/create', 'UserController@create')->name('user.create');
