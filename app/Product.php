@@ -24,4 +24,8 @@ class Product extends Model
         return $this->hasOne('App\OrderDetail', 'product_id');
     }
 
+    public function factory_shipment_product()
+    {
+        return $this->hasOne('App\FactoryShipmentProduct', 'product_id');
+    }
 }

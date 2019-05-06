@@ -64,6 +64,9 @@ Route::group(['prefix' => 'admin', 'middleware'=>['sess']], function(){
 
 	Route::post('/quantity-check', 'ShipmentController@quantity_check')->name('shipment.quantity_check');
 
+	Route::get('/shipment/{id}/receive', 'ShipmentController@receive')->name('shipment.receive');
+	Route::post('/shipment/{id}/receive', 'ShipmentController@received_products');
+
 
 
 	Route::get('/order', 'OrderController@index')->name('order.index');

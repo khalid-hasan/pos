@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\FactoryShipment;
+use App\FactoryShipmentProduct;
 use App\Factory;
+use App\LocalInventory;
 
 class FactoryShipmentController extends Controller
 {
@@ -16,10 +18,7 @@ class FactoryShipmentController extends Controller
      */
     public function index()
     {
-        $factory_shipments = DB::table('factory_shipments')
-        ->join('factories', 'factories.factory_id', '=', 'factory_shipments.factory_id')
-        ->select('factory_shipments.*', 'factories.*')
-        ->get();
+        $factory_shipments = FactoryShipment::all();
 
         return view('factory-shipment.index')->with('factory_shipments', $factory_shipments);
     }
@@ -32,8 +31,12 @@ class FactoryShipmentController extends Controller
     public function create()
     {
         $factories = Factory::all();
+        $products = DB::table('local_inventories')
+            ->join('products', 'products.product_id', '=', 'local_inventories.product_id')
+            ->select('products.name', 'products.product_id','local_inventories.*')
+            ->get();
 
-        return view('factory-shipment.create')->with('factories', $factories);
+        return view('factory-shipment.create')->with('factories', $factories)->with('products', $products);
     }
 
     /**
@@ -44,22 +47,29 @@ class FactoryShipmentController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'factory_id' => 'required',
-            'shipment_name' => 'required',
-            'shipment_creation_date' => 'required',
-            'shipment_arrival_date' => 'required'
-        ]);
-
         $factory_shipment = new FactoryShipment;
 
-        $factory_shipment->factory_id = $request->factory_id;
         $factory_shipment->shipment_name = $request->shipment_name;
-        $factory_shipment->shipment_creation_date = $request->shipment_creation_date;
-        $factory_shipment->shipment_arrival_date = $request->shipment_arrival_date;
+        $factory_shipment->status = 'Sent';
         $factory_shipment->save();
+        $shipment_id = $factory_shipment->id;
 
-        return redirect()->back()->with('message', 'Shipment Details Recorded.');
+        for($id = 0; $id < count($request->product_id); $id++){
+            $factory_shipment_product = new FactoryShipmentProduct;
+
+            $factory_shipment_product->shipment_id = $shipment_id;
+            $factory_shipment_product->product_id = $request->product_id[$id];
+            $factory_shipment_product->quantity = $request->qty[$id];
+            $factory_shipment_product->price = $request->price[$id];
+            $factory_shipment_product->save();
+
+            $local_inventory = LocalInventory::where('product_id', $request->product_id[$id])->first();
+            $local_inventory->quantity = $local_inventory->quantity - $request->qty[$id];
+            $local_inventory->save();
+
+        }
+
+        return redirect()->back()->with('message', 'Shipment Sent.');
     }
 
     /**
@@ -112,7 +122,6 @@ class FactoryShipmentController extends Controller
     public function messages()
     {
         return [
-            'factory_id.required' => 'A factory name is required',
             'shipment_name.required' => 'A shipment name is required',
             'shipment_creation_date.required'  => 'A shipment creation date is required',
             'shipment_arrival_date.required'  => 'A shipment arrival date is required',

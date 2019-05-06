@@ -24,10 +24,6 @@
                   <label>Amount</label>
                   <input type="text" class="form-control" id="amount" placeholder="Amount" name="amount" value="{{ old('amount') }}" required="">
                 </div>
-                <div class="form-group">
-                  <label>Receiver Name</label>
-                  <input type="text" class="form-control" id="receiver_name" placeholder="Receiver Name" name="receiver_name" value="{{ old('receiver_name') }}" required>
-                </div> 
               <!-- /.box-body -->
 
               <div class="box-footer">

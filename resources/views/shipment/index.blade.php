@@ -2,23 +2,28 @@
 
 @extends('adminlte::page')
 
-@section('title', 'All Shipments')
+@section('meta')
+<meta name="csrf_token" content="{{ csrf_token() }}" />  
+@stop
+
+@section('title', 'All Shipment Details')
 
 @section('content_header')
-    <h1>All Shipments</h1>
+    <h1>All Shipment Details</h1>
 @stop
 
 @section('content')
+
 
 <div class="row">
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">All Shipments</h3>
+        <h3 class="box-title">All Shipment Details</h3>
       </div>
 
       <div class="col-6 col-sm-4">
-      <button onclick="location.href='{{route('shipment.create')}}'" type="button" class="btn btn-block btn-primary add-btn">New Shipment</button>
+      <button onclick="location.href='{{route('factory-shipment.create')}}'" type="button" class="btn btn-block btn-primary add-btn">New Shipment</button>
       </div>
 
       <!-- /.box-header -->
@@ -26,38 +31,42 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>
           <tr>
-            <th>Shipment ID</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Send Date</th>
-            <th>Receive Date</th>
-            <th>Added By</th>
+            <th>ID</th>
+            <th>Shipment Name</th>
+            <th>Shipment Creation Date</th>
+            <th>Shipment Arrival Date</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
           </thead>
           <tbody>
           
-            @foreach ($shipments as $shipment)
-            <tr>
-              <td>{{$shipment->id}}</td>
-              <td>{{$shipment->name}}</td>
-              <td>{{$shipment->quantity}}</td>
-              <td>{{$shipment->send_date}}</td>
-              <td>{{$shipment->receive_date}}</td>
-              <td>{{$shipment->added_by}}</td>
-              <td><a href="{{route('shipment.delete', $shipment->product_id)}}">Delete</a></td>
-            </tr>
+            @foreach($factory_shipments as $factory_shipment)
+              <tr>
+                <td>{{$factory_shipment->id}}</td>
+                <td>{{$factory_shipment->shipment_name}}</td>
+                <td>{{$factory_shipment->shipment_creation_date}}</td>
+                <td>{{$factory_shipment->shipment_arrival_date}}</td>
+                <td>{{$factory_shipment->status}}</td>
+                <td>
+                  @if ( $factory_shipment->status == 'Sent' )
+                  <a href="{{route('shipment.receive', $factory_shipment->id)}}" class="btn btn-info order" role="button"><span class="glyphicon glyphicon-plus"></span> Receive</a>
+
+                  @elseif ( $factory_shipment->status == 'Received' )
+                  <a href="" class="btn btn-info order" role="button" disabled><span class="glyphicon glyphicon-plus"></span> Receive</a>
+                  @endif
+                </td>
+              </tr>
             @endforeach
           
           </tbody>
           <tfoot>
           <tr>
-            <th>Shipment ID</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Send Date</th>
-            <th>Receive Date</th>
-            <th>Added By</th>
+            <th>ID</th>
+            <th>Shipment Name</th>
+            <th>Shipment Creation Date</th>
+            <th>Shipment Arrival Date</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
           </tfoot>
@@ -69,6 +78,7 @@
   </div>
   <!-- /.col -->
 </div>
+
 
 @stop
 
@@ -93,4 +103,5 @@
   })
 
   </script>
+
 @stop

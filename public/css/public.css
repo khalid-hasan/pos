@@ -37,3 +37,11 @@ button.btn.btn-block.btn-primary.add-btn {
 a.btn.btn-info.order {
     padding: 6px;
 }
+
+button.btn.btn-primary.receive {
+    margin: 0px 0px 20px 20px;
+}
+
+.error.receive {
+    margin-left: 25px;
+}

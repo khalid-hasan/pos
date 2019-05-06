@@ -47,13 +47,11 @@ class TransferController extends Controller
     {
         request()->validate([
             'amount' => 'required',
-            'receiver_name' => 'required'
         ]);
 
         $transfer = new TransferredInToBd;
 
         $transfer->amount = $request->amount;
-        $transfer->receiver_name = $request->receiver_name;
         $transfer->status = 'Sent';
         $transfer->sender_name = session('uname');
         $transfer->save();
@@ -112,6 +110,7 @@ class TransferController extends Controller
         $transfer= TransferredInToBd::where('id', $id)->first();
 
         $transfer->status = 'Received';
+        $transfer->receiver_name = session('uname');
         $transfer->save();
 
         return redirect()->route('transfer-bd.index');

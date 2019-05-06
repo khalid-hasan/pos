@@ -27,10 +27,10 @@
           <thead>
           <tr>
             <th>ID</th>
-            <th>Factory Name</th>
             <th>Shipment Name</th>
             <th>Shipment Creation Date</th>
             <th>Shipment Arrival Date</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
           </thead>
@@ -39,10 +39,10 @@
             @foreach ($factory_shipments as $factory_shipment)
             <tr>
               <td>{{$factory_shipment->id}}</td>
-              <td>{{$factory_shipment->factory_name}}</td>
               <td>{{$factory_shipment->shipment_name}}</td>
               <td>{{$factory_shipment->shipment_creation_date}}</td>
               <td>{{$factory_shipment->shipment_arrival_date}}</td>
+              <td>{{$factory_shipment->status}}</td>
               <td><a href="{{route('factory-shipment.delete', $factory_shipment->id)}}">Delete</a></td>
             </tr>
             @endforeach
@@ -51,10 +51,10 @@
           <tfoot>
           <tr>
             <th>ID</th>
-            <th>Factory Name</th>
             <th>Shipment Name</th>
             <th>Shipment Creation Date</th>
             <th>Shipment Arrival Date</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
           </tfoot>

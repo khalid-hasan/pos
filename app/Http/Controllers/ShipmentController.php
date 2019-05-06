@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Product;
 use App\Inventory;
-use App\Shipment ;
+use App\FactoryShipment;
+use App\FactoryShipmentProduct;
 
 class ShipmentController extends Controller
 {
@@ -17,9 +18,16 @@ class ShipmentController extends Controller
      */
     public function index()
     {
-        $shipments = Shipment::all();
+        $factory_shipments = FactoryShipment::all();
 
-        return view('shipment.index')->with('shipments', $shipments);
+        $shipments = DB::table('factory_shipments')
+            ->join('factory_shipment_products', 'factory_shipment_products.shipment_id', '=', 'factory_shipments.id')
+            ->join('products', 'products.product_id', '=', 'factory_shipment_products.product_id')
+            ->select('factory_shipments.*', 'factory_shipment_products.*', 'products.name')
+            ->get();
+
+            //dd($shipments);
+        return view('shipment.index')->with('factory_shipments', $factory_shipments)->with('shipments', $shipments);
     }
 
     /**
@@ -142,4 +150,35 @@ class ShipmentController extends Controller
         }
     }
 
+    public function receive($id)
+    {
+        $shipment = FactoryShipment::where('id', $id)->first();
+
+        $shipment_products = DB::table('factory_shipment_products')
+        ->join('products', 'products.product_id', '=', 'factory_shipment_products.product_id')
+        ->select('factory_shipment_products.*', 'products.name')
+        ->where('factory_shipment_products.shipment_id', '=', $id)
+        ->get();
+
+        return view('shipment.receive')->with('shipment_products', $shipment_products)->with('shipment', $shipment);
+    }
+
+    public function received_products(Request $request, $product_id)
+    {
+        $factory_shipment = FactoryShipment::where('id', $request->shipment_id)->first();
+        $factory_shipment->status = 'Received';
+        $factory_shipment->save();
+
+        for($id = 0; $id < count($request->product_id); $id++){
+            $product = Product::where('product_id', $request->product_id[$id])->first();
+
+            $product->quantity = $product->quantity + $request->quantity[$id];
+            $product->price = $request->price[$id];
+            $product->status = 'In Stock';
+
+            $product->save();
+        }
+
+        return redirect()->back()->with('message', 'All Products Are added into Inventory.');
+    }
 }
